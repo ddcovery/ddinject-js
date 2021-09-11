@@ -142,3 +142,38 @@ function KeyGenerator({ } = {}) {
   };
 }
 ```
+
+Classic **Class as a provider**?
+Well, factory pattern is really simple and easily integrated in javascript filosofy using **functions and it's wonderful clousures**... if you think class as a provider fits better your needs, you can do it!!!
+
+> $ node examples/05_classes_vs_factory.js
+
+```javascript
+/**
+ * Dependencies are received by constructor: you must stored as private properties.
+ * Class must be defined before it can be use:  you can't move this declaration to the end of the file!!!
+ */
+class CarsProviderClass {
+  #keyGenerator
+  constructor({ keyGenerator }) {
+    console.log("✓ CarsProviderClass has been instantiated");
+      this.#keyGenerator = keyGenerator;
+    }
+    createCar(color) {
+      return {
+        id: this.#keyGenerator.next(),
+        color
+      };
+    }
+}
+
+Container().
+  // You must wrap the class instantiation
+  add("carsProvider", (deps) => new CarsProviderClass(deps)).
+  add("keyGenerator", KeyGenerator).
+  // You can't use "destructuring" to access methods of the instance because the internal "this" refernce changes:  It's a class limitation!!!
+  consume(({ carsProvider }) => {
+    console.log("❯", carsProvider.createCar("red"));
+    console.log("❯", carsProvider.createCar("yellow"));
+  });
+```

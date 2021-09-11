@@ -40,8 +40,6 @@ Container().
 		console.log("❯", carsProvider.createCar("yellow"));
 	});
 
-
-
 /**
 * The Function based provider
 * Dependencies doesn't need to be sotred as private properties:  they are available in the function scope automatically
