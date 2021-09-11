@@ -150,21 +150,21 @@ Well, factory pattern is really simple and easily integrated in javascript filos
 
 ```javascript
 /**
- * Dependencies are received by constructor: you must stored as private properties.
- * Class must be defined before it can be use:  you can't move this declaration to the end of the file!!!
+ * Dependencies are received by constructor: they must be stored as private properties.
+ * The class must be defined before it can be used: - you can't move this declaration to the end of the file! 
  */
 class CarsProviderClass {
   #keyGenerator
   constructor({ keyGenerator }) {
     console.log("✓ CarsProviderClass has been instantiated");
-      this.#keyGenerator = keyGenerator;
-    }
-    createCar(color) {
-      return {
-        id: this.#keyGenerator.next(),
-        color
-      };
-    }
+    this.#keyGenerator = keyGenerator;
+  }
+  createCar(color) {
+    return {
+      id: this.#keyGenerator.next(),
+      color
+    };
+  }
 }
 
 Container().
