@@ -39,16 +39,8 @@ Container().
   add("evenNumbers", EvenNumbers).
   add("oddNumbers", OddNumbers).
   consume(({ evenNumbers, oddNumbers }) => {
-    console.log("First 3 even numbers are:",
-      evenNumbers.next(),
-      evenNumbers.next(),
-      evenNumbers.next()
-    );
-    console.log("First 3 odd numbers are:",
-      oddNumbers.next(),
-      oddNumbers.next(),
-      oddNumbers.next()
-    );
+    console.log("First 3 even numbers are:", evenNumbers.next(), evenNumbers.next(), evenNumbers.next() );
+    console.log("First 3 odd numbers are:", oddNumbers.next(), oddNumbers.next(), oddNumbers.next() );
   });
 
 function EvenNumbers({ counter }) {
