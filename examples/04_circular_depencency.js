@@ -3,28 +3,24 @@
  */
 const { Container } = require("..");
 
-
 // A self dependency
 function A({ a }) { }
-// B and C mutual dependency
+// B and C mutually dependent
 function B({ c }) { }
 function C({ b }) { }
 
 const container = Container().
-	add("a", A).
-	add("b", B).
-	add("c", C);
+  add("a", A).
+  add("b", B).
+  add("c", C);
 
 try {
-	container.consume(({ a }) => { });
+  container.consume(({ a }) => { });
 } catch (e) {
-	console.log("Error consuming 'a':\n", e.message);
+  console.log("Error consuming 'a':\n", e.message);
 }
-
 try {
-	container.consume(function ({ b }) { });
+  container.consume(function ({ b }) { });
 } catch (e) {
-	console.log("Error consuming 'b':\n", e.message);
+  console.log("Error consuming 'b':\n", e.message);
 }
-
-
