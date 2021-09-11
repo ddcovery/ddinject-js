@@ -50,6 +50,28 @@ Container().
       oddNumbers.next()
     );
   });
+
+function EvenNumbers({ counter }) {
+  console.log("✓ EvenNumbers has been called");
+  return {
+    next: ()=>counter.next() * 2
+  }
+}
+
+function OddNumbers({ counter }) {
+  console.log("✓ OddNumbers has been called");
+  return {
+    next: ()=>1 + counter.next() * 2
+  }
+}
+
+function Counter({ }) {
+  console.log("✓ Counter has been called");
+  let value = 0;
+  return {
+    next: ()=value++
+  }
+}
 ```
 
 **Circular dependencies** are easily detected
