@@ -1,8 +1,8 @@
 # ddinject-js
 
-When **destructuring** and **lazy** properties make the hard work.
+When **destructuring** and **lazy** properties are combined ❤️ , **dependency injection becomes native**.
 
-Never dependencies injection has been so simple
+Never dependencies injection has been so simple 🎉️ 
 
 > $ node examples/00_simple.js
 
@@ -93,6 +93,7 @@ try {
   console.log("Error consuming 'b':\n", e.message);
 }
 ```
+
 **Factory first** allows you to "inject" dependencies before instantiating a class!!!
 
 > $ node examples/06_presolved_classes_factory.js
