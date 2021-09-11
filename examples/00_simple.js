@@ -7,7 +7,7 @@ Container().
 		logger.log("This has been logged");
 	});
 
-function Logger({ writter: { write } }) {
+function Logger({ writer: { write } }) {
 	let nLine = 0;
 	return {
 		log: (text) => write(`[${new Date().toISOString()}] [☛${++nLine}] ${text}`)
@@ -16,5 +16,5 @@ function Logger({ writter: { write } }) {
 function Writer() {
 	return {
 		write: (text) => console.log(text)
-	};
+	}
 }
