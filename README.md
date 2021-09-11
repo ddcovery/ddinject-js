@@ -2,7 +2,7 @@
 
 When **destructuring** and **lazy** properties are combined ❤️ , **dependency injection becomes native**.
 
-Never dependencies injection has been so simple 🎉️ 
+Never dependencies injection has been so simple 🎉️
 
 > $ node examples/00_simple.js
 
@@ -28,6 +28,22 @@ function Writer() {
   };
 }
 ```
+
+## Why I can say "this is the most javascript native way"?
+
+Because code of **Container** is only 95 lines long, including *comments* and *assertions*.
+
+* It supports Transient and Singleton providers.
+* It supports Dependency Cicles detection.
+
+How?
+
+* "destructuring" is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
+* Object "properties" are the way used to provide dependencies:  when you evaluate a property, the provider function is evaluated (and not before).
+
+When destructuring (consumer) and object properties (container) are combined, you have a fluent, simple, fast IOC solution
+
+## lets see more examples
 
 **Singleton by default**, but **transient** is supported:
 
@@ -172,10 +188,10 @@ class CarsProviderClass {
 }
 
 Container().
-  // You must wrap the class instantiation
+  // You must wrap the class instantiation into a factory
   add("carsProvider", (deps) => new CarsProviderClass(deps)).
   add("keyGenerator", KeyGenerator).
-  // You can't use "destructuring" to access methods of the instance because the internal "this" refernce changes:  It's a class limitation!!!
+  // You can not use "destructuring" to access methods of the instance because the internal "this" refernce changes!!!
   consume(({ carsProvider }) => {
     console.log("❯", carsProvider.createCar("red"));
     console.log("❯", carsProvider.createCar("yellow"));
