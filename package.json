@@ -1,0 +1,23 @@
+{
+  "name": "ddinject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddcovery/ddinject-js.git"
+  },
+  "keywords": [
+    "ddinject",
+    "js"
+  ],
+  "author": "Antonio Cabrera Pérez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ddcovery/ddinject-js/issues"
+  },
+  "homepage": "https://github.com/ddcovery/ddinject-js#readme"
+}
