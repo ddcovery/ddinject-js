@@ -13,11 +13,11 @@
   "keywords": [
     "ddinject",
     "js",
-		"destructuring",
-		"defineProperty",
-		"ioc",
-		"dependency",
-		"injection"
+    "destructuring",
+    "defineProperty",
+    "ioc",
+    "dependency",
+    "injection"
   ],
   "author": "Antonio Cabrera Pérez",
   "license": "ISC",
