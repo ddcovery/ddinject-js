@@ -29,7 +29,7 @@ function Writer() {
 }
 ```
 
-## Why I can say "this is the most javascript native way"?
+## Why I can say "this is the most native way for javascript"?
 
 Because code of **Container** is abount 100 lines long, including *comments* and *assertions*.
 
