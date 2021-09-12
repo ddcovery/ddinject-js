@@ -29,22 +29,23 @@ function Writer() {
 }
 ```
 
-## Why I can say "this is the most javascript native way"?
+## Why I can say "this is the javascript native way"?
 
-Because code of **Container** is abount 100 lines long, including *comments* and *assertions*.
+Because code of **Container** is about 100 lines long, including *comments* and *assertions*.
 
 * It supports Transient and Singleton providers.
-* It supports Dependency Cicles detection.
+* It supports Dependency Cycles detection.
 
 How?
 
-* "destructuring" is treated as first class citizen.  It fits perfectly when you need to consume dependencies
+* "destructuring" is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
 * Object "properties" are the way used to provide dependencies:  when you evaluate a property, the provider function is evaluated (and not before).
 
 When destructuring (consumer) and object properties (container) are combined, you have a fluent, simple, fast IOC solution
 
 ## lets see more examples
-​
+
+
 **Singleton by default**, but **transient** is supported:
 
 > $ node examples/03_transient.js
@@ -198,13 +199,20 @@ Container().
   });
 ```
 
-# Definitions
+# API
 
+## Create a container
+
+```javascript
+const container = Container()
+```
 
 ## The provider
-A provider is a function that receives, as paramenter, the dependencies object and generates, as result, a value.
+
+A provider is a function that receives, as paramenter, the dependencies object and generates a value.
 
 i.e.:
+
 ```javascript
 function CustomersDAO( dependencies ) {
   const {keyGenerator, db} = dependencies;
@@ -219,7 +227,13 @@ function CustomersDAO( dependencies ) {
 
 ```
 
-A friendly way to access dependencies is using destructuring: 
+**Remarks**:
+
+* The _dependencies_ object can't be modified: if you try to change or redefine any property an exception will be raised.
+* Trying to acces an unexisting dependency will raise an exception
+
+The "nice" way to access dependencies is using destructuring:
+
 * It removes the need to declare the _dependencies_ parameter.
 * You declare exactly what you need.
 
@@ -236,68 +250,15 @@ function CustomersDAO( {keyGenerator, db} ) {
 
 ```
 
-**Remarks**:
-* The _dependencies_ object can't be modified: if you try to create, change or delete any property an exception will be raised.
-* Trying to acces an unexisting dependency will raise an exception
-
-A provider can be added using **add**, **addTransient** and **addSingleton**
-
-## The consumer
-A consumer is a function that receives, as parameter, the dependencies object. It is not registered into the container.
-It is called using the **consume** method of the container
-
-i.e.:
-```javascript 
-Container().
-  add("a",A).
-  consume( myConsumer );
-
-function myConsumer({a}){
-  a.doSomething();
-}
-```
-i.e.:
-```javascript 
-const container = Container().
-  add("a",A).
-  add("b",B);
-
-container.consume( ({a})=>{
-  a.doSomething();
-});
-
-```
-
-You can consume from the container directly without receiving dependencies as parameters:  just use the **resolve** method
-```javascript 
-container = Container().
-  add("a",A).
-  add("b",B);
-  
-container.resolve["a"].doSomething();
-```
-# API
-
-## container.add or container.addSingleton
+## Adding a singleton provider to a container
 
 ```javascript
 container.add( name, fProvider ) -> Container
 ```
-Adds a provider to the container using a **name** string and the **fProvider** function
 
-* name: the name used by **consumers** to obtain the value (the provided value)
-* fProvider: The provider function to be used when a new value is required.
+Each provider is added to the container using a *name* string and a *fProvider* function
 
-Because it is "singleton", Provider will be called once (first time "name" reference is used by a consumer or other provider).  Returned value will be used to any future "name" reference.
+* name: the name used by consumers to obtain the value
+* fProvider: The function to be called to obtain the value.  fProvider is called using the dependencies object as parameter
 
-**Remarks**
-* Same provider function can be added with different names.  It allows to use, fore example, a singleton version and a transient version
-
-## container.addTransient
-
-```javascript
-container.addTransient( name, fProvider ) -> Container
-```
-
-It works the same way than container.add or container.addSingleton with the exception than fProvider will be called every time a consumer (or other provider) references the "name"
-
+The add method returns the container itself allowing chaining container methods calls
