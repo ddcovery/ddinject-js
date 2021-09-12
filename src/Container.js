@@ -4,6 +4,20 @@ module.exports = Container;
 
 function Container() {
 	const deps = {};
+	const proxiedDeps = new Proxy(deps, {
+		get(target, name) {
+			if (target.hasOwnProperty(name))
+				return target[name];
+			else
+				throw new Error(`✗ [ddinject.Container]: can't find provider "${name}"`);
+		},
+		set(target, property, value) {
+			throw new Error(`✗ [ddinject.Container]: changing dependencies object is not allowed`);
+		},
+		deleteProperty(target, property) {
+			throw new Error(`✗ [ddinject.Container]: changing dependencies object is not allowed`);
+		}
+	});
 	const api = {
 		add: addSingleton,
 		addSingleton,
@@ -37,15 +51,13 @@ function Container() {
 	function consume(fConsumer) {
 		assert(typeof fConsumer === "function", "fInjectionCousumer must be function");
 
-		return fConsumer(deps);
+		return fConsumer(proxiedDeps);
 	}
 	function resolve(name) {
 		assert(typeof name === "string", "name must be string");
 
-		return deps[name];
+		return proxiedDeps[name];
 	}
-
-
 	/**
 	 * Adds a new property into the "deps" private object.
 	 * The property getter will evaluate de provider.
@@ -59,17 +71,17 @@ function Container() {
 			Object.defineProperty(deps, name, { get: fProvider });
 		}
 	}
-
 	function Singleton(fValueProvider) {
 		let value;
+		let evaluated = false;
 		return () => {
-			if (value === void 0) {
-				value = fValueProvider(deps);
+			if (!evaluated) {
+				value = fValueProvider(proxiedDeps);
+				evaluated = true;
 			}
 			return value;
 		}
 	}
-
 	/**
 	 * Generates a provider that detects if it is called twice before first call is ended.
 	 * If re-entry is detected, an exception is raised
@@ -85,7 +97,7 @@ function Container() {
 			} else {
 				awaitingValue = true;
 				try {
-					return fValueProvider(deps);
+					return fValueProvider(proxiedDeps);
 				} finally {
 					awaitingValue = false;
 				}
