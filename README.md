@@ -120,15 +120,15 @@ Container().
   add("keyGenerator", KeyGenerator).
   consume(({ Person }) => {
     // Person is a Class with internal dependencies solved (i.e.: keyGenerator)
-    // Now, we can create as many instances of Person we need
+    // You can create as many instances of Person you need.
     const peter = new Person("Peter");
     console.log("❯", { name: peter.name, id: peter.id });
     peter.sayYourName();
   });
 
 /**
- * We encapsulate Person class into a factory... 
- * The factory receives solved dependencies, the class can use this dependencies because is defined into factory closure
+ * The class itself (no a class instance) is returned by the factory.
+ * The class can use all solved dependencies because it is defined into the factory function.
  */
 function PersonFactory({ keyGenerator: { next } }) {
   console.log("✓ PersonFactory has been called");
@@ -136,6 +136,7 @@ function PersonFactory({ keyGenerator: { next } }) {
     #id
     #name
     constructor(name) {
+      // We use the method of a provider here
       this.#id = `person_${next()}`;
       this.#name = name;
     }
