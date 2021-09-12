@@ -58,7 +58,7 @@ When destructuring (consumer) and dependencies as properties are combined, you h
 > $ node examples/03_transient.js
 
 ```javascript
-Container().
+createContainer().
   addTransient("counter", CounterFactory).
   add("evenNumbers", EvenNumbersFactory).
   add("oddNumbers", OddNumbersFactory).
@@ -125,7 +125,7 @@ try {
 ```javascript
 createContainer().
   add("Person", PersonClassFactory).
-  add("keyGenerator", KeyGenerator).
+  add("keyGenerator", KeyGeneratorFactory).
   consume(({ Person }) => {
     // Person is a Class with internal dependencies solved (i.e.: keyGenerator)
     // You can create as many instances of Person as you need.
@@ -160,8 +160,8 @@ function PersonClassFactory({ keyGenerator: { next } }) {
   };
 }
 
-function KeyGenerator({ } = {}) {
-  console.log("✓ KeyGenerator has been called");
+function KeyGeneratorFactory({ } = {}) {
+  console.log("✓ KeyGeneratorFactory has been called");
   let lastId = 0;
   return {
     next: () => `${++lastId}`
