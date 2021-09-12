@@ -29,7 +29,7 @@ function WriterFactory() {
 
 ## Wait... where are the **classes**?
 
-This container library is, mainly, **functional** and treats with **factories** instead clasic classes.
+This container library is, mainly, **functional** and treats with **factories** instead classic classes.
 Although you can also use it with classes as you will see a little below.
 
 ### A philosophical thought that no one needs apart from the author himself 
