@@ -1,18 +1,18 @@
 /**
  * Transient dependency examples... each time a dependency is resolved,  a new instance is generated
  */
-const { Container } = require("..");
+const { createContainer } = require("..");
 
 // A self dependency
-function A({ a }) { }
+function AFactory({ a }) { }
 // B and C mutually dependent
-function B({ c }) { }
-function C({ b }) { }
+function BFactory({ c }) { }
+function CFactory({ b }) { }
 
-const container = Container().
-  add("a", A).
-  add("b", B).
-  add("c", C);
+const container = createContainer().
+  add("a", AFactory).
+  add("b", BFactory).
+  add("c", CFactory);
 
 try {
   container.consume(({ a }) => { });

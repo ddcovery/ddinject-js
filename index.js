@@ -1,3 +1,3 @@
 
 
-exports.Container = require("./src/Container");
+exports.createContainer = require("./src/Container");

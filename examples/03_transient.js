@@ -1,12 +1,12 @@
 /**
  * Transient dependency examples... each time a dependency is resolved,  a new instance is generated
  */
-const { Container } = require("..");
+const { createContainer } = require("..");
 
-const container = Container().
-	addTransient("counter", Counter).
-	add("evenNumbers", EvenNumbers).
-	add("oddNumbers", OddNumbers);
+const container = createContainer().
+	addTransient("counter", CounterFactory).
+	add("evenNumbers", EvenNumbersFactory).
+	add("oddNumbers", OddNumbersFactory);
 
 //
 // Because "counter" is a transient provider, EvenNumbers and OddNumbers can generate numbers 
@@ -26,22 +26,21 @@ container.consume(({ evenNumbers, oddNumbers }) => {
 });
 
 // Because 'evenNumers' is singleton... resolving it will reuse the same instance;
-console.log("Fourth even number is", container.resolve("evenNumbers").next());
+console.log("Fourth even number is", container.deps.evenNumbers.next());
 // Destructuring magic: we can inject a methods !!! 
 container.consume(({ evenNumbers: { next } }) => {
 	console.log("Fifth even number is", next());
 });
-// The container "consume" method, returns transparently the result of the consumer method... 
-// you can use it as a "resolve" alternative (avoiding the use of "strings")
+
 {
-	let { next } = container.consume(({ evenNumbers }) => evenNumbers);
+	let { evenNumbers: { next } } = container.deps;
 	console.log("Sixth  even number is", next());
 }
 
 
 
 
-function EvenNumbers({ counter }) {
+function EvenNumbersFactory({ counter }) {
 	console.log("✓ EvenNumbers has been instantiated");
 	return {
 		next
@@ -51,7 +50,7 @@ function EvenNumbers({ counter }) {
 	}
 }
 
-function OddNumbers({ counter }) {
+function OddNumbersFactory({ counter }) {
 	console.log("✓ OddNumbers has been instantiated");
 	return {
 		next
@@ -61,7 +60,7 @@ function OddNumbers({ counter }) {
 	}
 }
 
-function Counter({ }) {
+function CounterFactory({ }) {
 	console.log("✓ Counter has been instantiated");
 	let value = 0;
 	return {

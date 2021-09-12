@@ -1,8 +1,8 @@
-const { Container } = require("..");
+const { createContainer } = require("..");
 
-Container().
-  add("Person", PersonFactory).
-  add("keyGenerator", KeyGenerator).
+createContainer().
+  add("Person", PersonClassFactory).
+  add("keyGenerator", KeyGeneratorFactory).
   consume(({ Person }) => {
     // Person is a Class with internal dependencies solved (i.e.: keyGenerator)
     // Now, we can create as many instances of Person we need
@@ -16,8 +16,8 @@ Container().
  * We encapsulate Person class into a factory... 
  * The factory receives solved dependencies, the class can use this dependencies because is defined into factory clousure
  */
-function PersonFactory({ keyGenerator: { next } }) {
-  console.log("✓ PersonFactory has been called");
+function PersonClassFactory({ keyGenerator: { next } }) {
+  console.log("✓ PersonClassFactory has been called");
   return class Person {
     #id
     #name
@@ -37,8 +37,8 @@ function PersonFactory({ keyGenerator: { next } }) {
   };
 }
 
-function KeyGenerator({ } = {}) {
-  console.log("✓ KeyGenerator has been called");
+function KeyGeneratorFactory({ } = {}) {
+  console.log("✓ KeyGeneratorFactory has been called");
   let lastId = 0;
   return {
     next: () => `${++lastId}`

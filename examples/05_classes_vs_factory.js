@@ -1,4 +1,4 @@
-const { Container } = require("..");
+const { createContainer } = require("..");
 
 
 /**
@@ -22,18 +22,18 @@ class CarsProviderClass {
 
 
 // Example 1: Standard factory function as provider
-Container().
-	add("carsProvider", CarsProvider).
-	add("keyGenerator", KeyGenerator).
+createContainer().
+	add("carsProvider", CarsProviderFactory).
+	add("keyGenerator", KeyGeneratorFactory).
 	consume(({ carsProvider: { createCar } }) => {
 		console.log("❯", createCar("red"));
 		console.log("❯", createCar("yelow"));
 	});
 
 // Example 2: Standard class as a provider:  Must be wrapped with a Factory.   
-Container().
+createContainer().
 	add("carsProvider", (deps) => new CarsProviderClass(deps)).
-	add("keyGenerator", KeyGenerator).
+	add("keyGenerator", KeyGeneratorFactory).
 	// You can't use "destructuring" to access methods of the instance because the internal "this" refernce changes
 	consume(({ carsProvider }) => {
 		console.log("❯", carsProvider.createCar("red"));
@@ -44,8 +44,8 @@ Container().
 * The Function based provider
 * Dependencies doesn't need to be sotred as private properties:  they are available in the function scope automatically
 */
-function CarsProvider({ keyGenerator }) {
-	console.log("✓ CarsProvider has been called");
+function CarsProviderFactory({ keyGenerator }) {
+	console.log("✓ CarsProviderFactory has been called");
 	return {
 		createCar
 	};
@@ -58,8 +58,8 @@ function CarsProvider({ keyGenerator }) {
 	}
 }
 
-function KeyGenerator({ } = {}) {
-	console.log("✓ KeyGenerator provider has been called");
+function KeyGeneratorFactory({ } = {}) {
+	console.log("✓ KeyGeneratorFactory has been called");
 	let lastId = 0;
 	return {
 		next: () => `${++lastId}`

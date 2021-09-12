@@ -1,19 +1,19 @@
-const { Container } = require("..");
+const { createContainer } = require("..");
 
-Container().
-	add("logger", Logger).
-	add("writer", Writer).
+createContainer().
+	add("logger", LoggerFactory).
+	add("writer", WriterFactory).
 	consume(({ logger }) => {
 		logger.log("This has been logged");
 	});
 
-function Logger({ writer: { write } }) {
+function LoggerFactory({ writer: { write } }) {
 	let nLine = 0;
 	return {
 		log: (text) => write(`[${new Date().toISOString()}] [☛${++nLine}] ${text}`)
 	}
 }
-function Writer() {
+function WriterFactory() {
 	return {
 		write: (text) => console.log(text)
 	}
