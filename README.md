@@ -120,7 +120,7 @@ Container().
   add("keyGenerator", KeyGenerator).
   consume(({ Person }) => {
     // Person is a Class with internal dependencies solved (i.e.: keyGenerator)
-    // You can create as many instances of Person you need.
+    // You can create as many instances of Person as you need.
     const peter = new Person("Peter");
     console.log("❯", { name: peter.name, id: peter.id });
     peter.sayYourName();
