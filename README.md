@@ -32,24 +32,6 @@ function WriterFactory() {
 This container library is, mainly, **functional** and treats with **factories** instead classic classes.
 Although you can also use it with classes as you will see a little below.
 
-### A philosophical thought that no one needs apart from the author himself 
-
-**JavaScript** can be used in many ways. 
-
-One of the more powerful ones is embracing than:
-
-* **it is not an OOP language** in the "classic" way than OOP developers expect.
-* **it is not an strongly typed language**
-
-After breaking the universal mantra about "how an OOP language must be and why javascript is a bad language" you can start enjoying developing with it:
-
-* You have **functions, closures and objects** that give Javascript it's real power.
-* You have rencently sugar syntax inforporations like **destructuring** or **lambdas** or ...
-* You only need good conventions.
- 
-After decades of experience with "good/bad languages" (ASM, C, Pascal, C++, C#, Java, Scala, D, Typescript, Ruby, VBScript, Power Shell, Bash, Lingo, Clipper, Basic, ... ) you learn something:  **a programming language must be used in the way you can flow with it**... forcing it to be something that is not **can lead you to hate it**.
-
-
 ## Do you really thing this is the native way for javascript?
 
 The main container code is about 80 lines long (after removing comments and the Proxy mechanism recently added to protect from misuse).  
@@ -329,3 +311,19 @@ container.addTransient( name, fProvider ) -> Container
 It works the same way than container.add or container.addSingleton with the exception than fProvider will be called every time a consumer (or other provider) references the "name"
 
 
+# A philosophical thought that no one needs apart from the author himself 
+
+**JavaScript** can be used in many ways. 
+
+One of the more powerful ones is embracing than:
+
+* **it is not an OOP language** in the "classic" way than OOP developers expect.
+* **it is not an strongly typed language**
+
+After breaking the universal mantra about "how an OOP language must be and why javascript is a bad language" you can start enjoying developing with it:
+
+* You have **functions, closures and objects** that give Javascript it's real power.
+* You have rencently sugar syntax inforporations like **destructuring** or **lambdas** or ...
+* You only need good conventions.
+ 
+After decades of experience with "good/bad languages" (ASM, C, Pascal, C++, C#, Java, Scala, D, Typescript, Ruby, VBScript, Power Shell, Bash, Lingo, Clipper, Basic, ... ) you learn something:  **a programming language must be used in the way you can flow with it**... forcing it to be something that is not **can lead you to hate it**.
