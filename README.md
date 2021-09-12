@@ -34,14 +34,14 @@ function Writer() {
 Because code of **Container** is abount 100 lines long, including *comments* and *assertions*.
 
 * It supports Transient and Singleton providers.
-* It supports Dependency Cicles detection.
+* It supports Dependency Cycles detection.
 
 How?
 
-* "destructuring" is treated as first class citizen.  It fits perfectly when you need to consume dependencies
-* Object "properties" are the way used to provide dependencies:  when you evaluate a property, the provider function is evaluated (and not before).
+* **destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies
+* Object **properties** are the way used to provide dependencies:  when you evaluate a property, the provider function is evaluated (and not before).
 
-When destructuring (consumer) and object properties (container) are combined, you have a fluent, simple, fast IOC solution
+When destructuring (consumer) and dependencies as properties are combined, you have a fluent, simple, fast IOC solution
 
 ## lets see more examples
 ​
@@ -128,7 +128,7 @@ Container().
 
 /**
  * We encapsulate Person class into a factory... 
- * The factory receives solved dependencies, the class can use this dependencies because is defined into factory clousure
+ * The factory receives solved dependencies, the class can use this dependencies because is defined into factory closure
  */
 function PersonFactory({ keyGenerator: { next } }) {
   console.log("✓ PersonFactory has been called");
@@ -162,9 +162,9 @@ function KeyGenerator({ } = {}) {
 
 ## Classic **Class as a provider**?
 
-Well, factory pattern is really simple and easily integrated in javascript filosofy using **functions and it's wonderful clousures**.
+Well, factory pattern is really simple and easily integrated in javascript filosofy using **functions and it's wonderful closures**.
 
-In any case, if you think class as a provider fits better your needs, you can do it!!!
+In any case, if you think class as a provider fits better your needs, you can use it!!!
 
 > $ node examples/05_classes_vs_factory.js
 
