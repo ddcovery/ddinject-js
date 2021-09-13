@@ -406,7 +406,7 @@ One of the more powerful ones is embracing than:
 After breaking the universal mantra about "how an OOP language must be and why javascript is a bad language" you can start enjoying developing with it:
 
 * You have **functions, closures and objects** that give Javascript it's real power.
-* You have rencently sugar syntax inforporations like **destructuring** or **lambdas** or ...
+* You have rencently sugar syntax incorporations like **destructuring** or **lambdas** or ...
 * You only need good conventions.
  
 After decades of experience with "good/bad languages" (ASM, C, Pascal, C++, C#, Java, Scala, D, Typescript, Ruby, VBScript, Power Shell, Bash, Lingo, Clipper, Basic, ... ) you learn something:  **a programming language must be used in the way you can flow with it**... forcing it to be something that is not **can lead you to hate it**.
