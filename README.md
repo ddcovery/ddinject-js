@@ -171,7 +171,7 @@ function KeyGeneratorFactory({ } = {}) {
 
 ## Classic **Class as a provider**?
 
-Well, factory pattern is really simple and easily integrated in javascript filosofy using **functions and it's wonderful closures**.
+Well, factory pattern is really simple and easily integrated in javascript philosophy using **functions and it's wonderful closures**.
 
 In any case, if you think class as a provider fits better your needs, you can use it!!!
 
