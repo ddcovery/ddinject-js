@@ -68,7 +68,7 @@ function CounterFactory({ }) {
   let value = 0;
   return {
     next: ()=value++
-  }https://en.wikipedia.org/wiki/Builder_pattern
+  }
 }
 ```
 
