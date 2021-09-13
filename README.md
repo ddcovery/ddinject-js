@@ -1,6 +1,6 @@
 # ddinject-js
 
-When **destructuring** and **defined properties** are combined, **dependency injection becomes native**  🎉️... and **simple** ❤
+When **destructuring** and **defined properties** are combined ❤, **dependency injection becomes native** and **simple** 🎉️
 
 > $ node examples/00_simple.js
 
@@ -27,9 +27,10 @@ function WriterFactory() {
 }
 ```
 
-## Wait... where are the **classes**?
+## Wait... where are the **classes**, **anotations**, ... and all classical stuff?
 
-This container library is, mainly, **functional** and treats with **factories** instead classic classes.
+Hey guy:  this is JavaScript.  This container library is, mainly, **functional** and treats with **factories** instead classic classes.
+
 Although you can also use it with classes as you will see a little below.
 
 ## Do you really think this is the native way for javascript?
@@ -44,12 +45,12 @@ With this short code we support dependencies injection rich functionalities like
 How?
 
 * **destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
-* Object **defined properties** are the way used to provide dependencies:  when you evaluate a property, the provider function is evaluated (and not before).
+* Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider has dependencies, they are evaluated before provider itself is executed.... and so on.
 
-It is simple, fast and fluent.
+It is simple, fast and fluent 🚤.
 
-## lets see more examples
-​
+## lets see more examples 
+
 **Singleton by default**, but **transient** is supported:
 
 > $ node examples/03_transient.js
