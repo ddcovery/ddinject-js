@@ -1,6 +1,8 @@
-# ddinject-js
+# ddinject: when dependency injection becomes native
 
-When **destructuring** and **defined properties** are combined ❤, **dependency injection becomes native** and **simple** 🎉️
+When **destructuring** and **defined properties** are combined dependency injection becomes native and simple 🎉️
+
+**Take a look**
 
 > $ node examples/00_simple.js
 
@@ -27,17 +29,17 @@ function WriterFactory() {
 }
 ```
 
-## Wait... where are the **classes**, **annotations**, ... and all classical stuff?
+## Wait... where are **classes**, **annotations**, **reflection**... and all classical stuff?
 
-Hey guy:  this is JavaScript.  
+Hey guy 🙋: this is **JavaScript!!!**  .  
 
-This container library is, mainly, **functional** and treats with **factories** instead classic classes.
+This container library is, mainly, **functional**.   We love functions and closures and Providers are implemented this way (**factories** if you prefer) instead classic classes.
 
-Although you can also use it with classes as you will see a little below.
+Any way, there is no problem:  you can also use it with javascript classes (😅) with very small boilerplate.  You will see it a little below.  Just continue reading
 
-## lets see more examples 
+## Lets see more examples 
 
-**Singleton by default**, but **transient** is supported:
+**Singleton by default**, but **Transient** is supported:
 
 > $ node examples/03_transient.js
 
@@ -154,10 +156,6 @@ function KeyGeneratorFactory({ } = {}) {
 ```
 
 ## Classic **Class as a provider**?
-
-Well, factory pattern is really simple and easily integrated in javascript philosophy using **functions and it's wonderful closures**.
-
-In any case, if you think class as a provider fits better your needs, you can use it!!!
 
 > $ node examples/05_classes_vs_factory.js
 
