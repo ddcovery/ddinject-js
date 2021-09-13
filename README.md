@@ -284,7 +284,9 @@ container.deps.a.doSomething();
 ```
 # API
 
-## createContainer()->Container
+## constructor
+
+### createContainer()->Container
 
 Creates a new Container object.
 Aligned with the philosofy of this library, we avoid the need of classes and "new" keyword.
@@ -309,7 +311,7 @@ console.assert(a === b);
 
 ### add(name:string, fProvider: Function(Depencencies)->Any ) -> Container
 
-See **__addSingleton__**
+See **_addSingleton_**
 
 ### addTransient(name:string, fProvider: Function(Depencencies)->Any ) -> Container
 
@@ -329,16 +331,16 @@ console.assert(a !== b);
 
 ### consume( fConsumer: Function(Dependencies)->T )->T
 
-Executes a consumer function (See **__Consumer_**) that will receive the Dependencies object.
-The result of the function will be returned by consume
+Executes a consumer function (See **_Consumer_**) that will receive the Dependencies object.
+The result of the function will be returned
 
 ```javascript
 const container = createContainer().
   addTransient( "numbers", ()=>[1,2,3,4] );
   
-const sum = container.consume( ({numbers})=>numbers.reduce( (s,n)=>s+n ) );  
+const sum = container.consume( ({ numbers }) => numbers.reduce( (s,n)=>s+n ,0 ) );  
 
-console.assert(sum === 10 );
+console.assert( sum === 10 );
 ```
 
 ## Properties
@@ -356,11 +358,10 @@ const {greeter, quiet} = container.deps;
 console.assert( quiet.say() === "" );
 console.assert( greeter.sayHello("Peter") === "Hello Peter" );
 
-
 function GreeterFactory({quiet}){
   return {
     sayHello: (name)=>`Hello ${name}`
-  }
+  };
 }
 funtion QuietFactory(){
   return {
