@@ -27,9 +27,11 @@ function WriterFactory() {
 }
 ```
 
-## Wait... where are the **classes**, **anotations**, ... and all classical stuff?
+## Wait... where are the **classes**, **annotations**, ... and all classical stuff?
 
-Hey guy:  this is JavaScript.  This container library is, mainly, **functional** and treats with **factories** instead classic classes.
+Hey guy:  this is JavaScript.  
+
+This container library is, mainly, **functional** and treats with **factories** instead classic classes.
 
 Although you can also use it with classes as you will see a little below.
 
