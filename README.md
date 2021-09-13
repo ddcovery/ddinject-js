@@ -262,15 +262,21 @@ function createCustomerAction(request, response, next){
 Usually, you will prefer to register as a provider when possible (removing the need of a "container" variable)
 ``` javascript
 // main.js
-const container = createContainer().
+createContainer().
+  add("config", require("../config/app_config.js"):
   add("customersDao", require("./daos/customers_dao.js")).
   add("customersCtrl", require("./controllers/customers_ctrl.js")).
-  add("apiRoutes", require("./routes/api_routes.js"));
+  add("apiRoutes", require("./routes/api_routes.js")).
+  consume( ({ apiRoutes, config })=>
+    express().
+      ...
+      .use("/api", container.deps.apiRoutes )
+      ...
+      .listen(config.http.port, () => 
+        console.log(`⚡️[server]: Server is running at http://localhost:${config.http.port}`);
+      )  
+ );
 
-express.
-  ...
-  .use("/api", container.deps.apiRoutes )
-  ...
 // customers_ctrl.js
 module.exports = function CustomersCtrl({customersDao}){
   return {
