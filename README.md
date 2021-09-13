@@ -33,22 +33,6 @@ Hey guy:  this is JavaScript.  This container library is, mainly, **functional**
 
 Although you can also use it with classes as you will see a little below.
 
-## Do you really think this is the native way for javascript?
-
-The main container code is about 80 lines long (after removing comments and the Proxy mechanism recently added to protect from misuse).  
-
-With this short code we support dependencies injection rich functionalities like:
-
-* Transient and Singleton providers.
-* Dependency Cycles detection.
-
-How?
-
-* **destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
-* Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider has dependencies, they are evaluated before provider itself is executed.... and so on.
-
-It is simple, fast and fluent 🚤.
-
 ## lets see more examples 
 
 **Singleton by default**, but **transient** is supported:
@@ -387,3 +371,55 @@ After breaking the universal mantra about "how an OOP language must be and why j
 * You only need good conventions.
  
 After decades of experience with "good/bad languages" (ASM, C, Pascal, C++, C#, Java, Scala, D, Typescript, Ruby, VBScript, Power Shell, Bash, Lingo, Clipper, Basic, ... ) you learn something:  **a programming language must be used in the way you can flow with it**... forcing it to be something that is not **can lead you to hate it**.
+
+# Do you really think this is the native way for javascript?
+
+The original version I wrote was 23 lines long:
+
+```javascript
+    function Container() { 
+      const deps = { }; 
+      const api = { 
+        addSingleton: (name, fValueProvider) => { 
+          Object.defineProperty(deps, name, {  
+            get: singlentonValue(fValueProvider)  
+          }); 
+          return api; 
+        }, 
+        doWith: (f) => f(deps) 
+      }; 
+      return api; 
+       
+      function singlentonValue(fValueProvider) { 
+        var value; 
+        return () => { 
+          if (value === undefined) { 
+            value = fValueProvider(deps); 
+          } 
+          return value; 
+        } 
+      } 
+    } 
+```    
+
+This "simple thing" is enought for a node/express application:  it's simple, it's powerful, it's fast.
+
+* Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider has dependencies, they are evaluated before provider itself is executed.... and so on.
+
+In the other hand, **Destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
+
+```javascript
+container.doWith( ({customersDAO, productsDAO })=>{ 
+ ... 
+});
+```
+
+The actual container version code is about 80 lines long (after removing comments and the Proxy mechanism recently added to protect from misuse).  
+
+With this version we support dependencies injection rich functionalities like:
+
+* Transient and Singleton providers.
+* Dependency Cycles detection.
+* Direct deps access to consumers (in a very "protected" but simple way)
+
+And it's possible with few lines of code add powerful funcionalities like Containers that "inherites" other "base" containers... javascript rocks wen it is used by javascript with the javascript "bad designed" rules **👊**
