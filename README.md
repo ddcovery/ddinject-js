@@ -197,7 +197,6 @@ i.e.:
 ```javascript
 function CustomersDAO( dependencies ) {
   const {keyGenerator, db} = dependencies;
-  
   return {
     create,
     delete,
@@ -211,7 +210,6 @@ You can rewrite it in a more friendly way:
 
 ```javascript
 function CustomersDAO( {keyGenerator, db} ) {
- 
   return {
     create,
     delete,
@@ -229,6 +227,7 @@ A provider can be added using **add**, **addTransient** and **addSingleton**
 
 ## The consumer
 Any function that consumes dependencies from the container and is not registered as provider is a consumer.
+
 The **consume** method is a simple way to inject dependencies into a consumer function
 
 ```javascript 
@@ -259,7 +258,10 @@ function createCustomerAction(request, response, next){
   response.send( customersDao.createCustomer( request.body );
 }
 ```
-Usually, you will prefer to register as a provider when possible (removing the need of a "container" variable)
+Usually, you will prefer to register as a provider when possible (removing the need of a "container" variable).
+
+As you probably observed, **ddinject** library enbraces the "[Builder pattern|https://en.wikipedia.org/wiki/Builder_pattern]".  This example shows how to wire-up a _complete express application_ without the need of additional variables.
+
 ``` javascript
 // main.js
 createContainer().
