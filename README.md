@@ -273,7 +273,7 @@ createContainer().
   consume( ({ apiRoutes, config })=>
     express().
       ...
-      .use("/api", container.deps.apiRoutes )
+      .use("/api", apiRoutes )
       ...
       .listen(config.http.port, () => 
         console.log(`⚡️[server]: Server is running at http://localhost:${config.http.port}`);
