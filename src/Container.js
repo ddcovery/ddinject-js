@@ -124,7 +124,6 @@ function createContainer() {
 
 	function createDependenciesProxy(deps) {
 		const DepsChgErrorMsg = `✗ [ddinject.Container]: changing dependencies object is not allowed`;
-
 		return new Proxy(deps, {
 			get(target, name) {
 				if (target.hasOwnProperty(name))
