@@ -129,7 +129,7 @@ function createContainer() {
         if (target.hasOwnProperty(name))
           return target[name];
         else
-          throw new Error(`✗ [ddinject.Container]: can't find provider "${name}"`);
+          throw new Error(`✗ [ddinject.Container]: can't solve "${name}"`);
       },
       set() { throw new Error(DepsChgErrorMsg); },
       deleteProperty() { throw new Error(DepsChgErrorMsg); },
