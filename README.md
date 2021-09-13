@@ -32,7 +32,7 @@ function WriterFactory() {
 This container library is, mainly, **functional** and treats with **factories** instead classic classes.
 Although you can also use it with classes as you will see a little below.
 
-## Do you really thing this is the native way for javascript?
+## Do you really think this is the native way for javascript?
 
 The main container code is about 80 lines long (after removing comments and the Proxy mechanism recently added to protect from misuse).  
 With this short code we support dependencies injection rich functionalities:
