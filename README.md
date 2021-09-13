@@ -190,7 +190,6 @@ createContainer().
 
 # Definitions
 
-
 ## The provider
 A provider is a function that receives, as paramenter, the dependencies object and generates, as result, a value.
 
@@ -222,7 +221,6 @@ function CustomersDAO( {keyGenerator, db} ) {
 }
 
 ```
-
 **Remarks**:
 * The _dependencies_ object can't be modified: if you try to create, change or delete any property an exception will be raised.
 * Trying to access an unexisting dependency will raise an exception
@@ -230,41 +228,73 @@ function CustomersDAO( {keyGenerator, db} ) {
 A provider can be added using **add**, **addTransient** and **addSingleton**
 
 ## The consumer
-A consumer is a function that receives, as parameter, the dependencies object. It is not registered into the container.
-It is called using the **consume** method of the container
+Any function that consumes dependencies from the container and is not registered as provider is a consumer.
+The **consume** method is a simple way to inject dependencies into a consumer function
 
-i.e.:je
 ```javascript 
-createContainer().
-  add("a",A).
-  consume( myConsumer );
+container = createContainer().
+  add("a", AProvider).
+  consume( myAppLogic );
 
-function myConsumer({a}){
+function myAppLogic({ a }){
   a.doSomething();
 }
 ```
-i.e.:
+
 ```javascript 
 const container = createContainer().
-  add("a",A).
-  add("b",B);
-
-container.consume( ({a})=>{
-  a.doSomething();
-});
-
+  add("customersDao",CustomersDaoProvider).
+  add("productsDao",ProductsDaoProviderB);
+...
+function createCustomerAction(request, response, next){
+  container.consume( ({customersDao})=>{
+    response.send( customersDao.createCustomer(request.body) );
+  });
+}
 ```
-
 You can consume from the container directly without receiving dependencies as parameters:  just use the **deps** property
 ```javascript 
-container = createContainer().
-  add("a",A).
-  add("b",B);
-  
-const {a} = container.deps;
-a.doSomething();
+function createCustomerAction(request, response, next){
+  const {customersDao, schemas} = container.deps;
+  response.send( customersDao.createCustomer( request.body );
+}
+```
+Usually, you will prefer to register as a provider when possible (removing the need of a "container" variable)
+``` javascript
+// main.js
+const container = createContainer().
+  add("customersDao", require("./daos/customers_dao.js")).
+  add("customersCtrl", require("./controllers/customers_ctrl.js")).
+  add("apiRoutes", require("./routes/api_routes.js"));
 
-container.deps.a.doSomething();
+express.
+  ...
+  .use("/api", container.deps.apiRoutes )
+  ...
+// customers_ctrl.js
+module.exports = function CustomersCtrl({customersDao}){
+  return {
+    createCustomerAct,
+    listCustomersAct,
+    updateCustomerAct,
+    readCustomerAct,
+    deleteCustomersAct
+  };
+  function createCustomerAct(req, res, next){ ... }
+  ...
+}
+// api_routes.js
+module.exports = ({ customersCtrl }) => {
+  const { createCustomerAct, readCustomerAct, listCustomerAct, updateCustomerAct, deleteCustomerAct }  = customersCtrl;
+
+  return express.
+    Router({ mergeParams: true }).
+    use(express.json({})).
+    post("/customers", createCustomerAct).
+    put("/customers/:customer_id", updateCustomerAct).
+    get("/customers", listCustomerAct).
+    delete("/customers/:customer_id", deleteCustomerAct);
+};
 ```
 # API
 
