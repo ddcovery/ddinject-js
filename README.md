@@ -164,7 +164,7 @@ function KeyGeneratorFactory({ } = {}) {
   console.log("✓ KeyGeneratorFactory has been called");
   let lastId = 0;
   return {
-    next: () => `${++lastId}`
+    next: () => `${++lastId}`filosofy
   };
 }
 ```
@@ -277,13 +277,16 @@ container.consume( ({a})=>{
 
 ```
 
-You can consume from the container directly without receiving dependencies as parameters:  just use the **resolve** method
+You can consume from the container directly without receiving dependencies as parameters:  just use the **deps** property
 ```javascript 
 container = createContainer().
   add("a",A).
   add("b",B);
   
-container.resolve["a"].doSomething();
+const {a} = container.deps;
+a.doSomething();
+
+container.deps.a.doSomething();
 ```
 # API
 
