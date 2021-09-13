@@ -458,10 +458,10 @@ With this version we support dependencies injection rich functionalities like:
 
 * Transient and Singleton providers.
 * Dependency Cycles detection.
-* Direct deps access to consumers (in a very "protected" but simple way)
+* Direct dependencies access (in a very "protected" but simple way)
 
 And it's possible with few lines of code to add more and more powerful functionalites like:
-* Containers that "inherites" other "base" containers.
+* Containers that "inherites" other "base" containers (Thanks to Proxy object).
 * Loading/registering module files directly (.load("./controllers/CustomersCtrl") or .loadAll("./controllers") )
 
 JavaScript rocks when it is used with the javascript "bad designed" language rules **👊**
