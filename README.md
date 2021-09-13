@@ -177,7 +177,6 @@ In any case, if you think class as a provider fits better your needs, you can us
 ```javascript
 /**
  * Dependencies are received by constructor: they must be stored as private properties.
- * The class must be defined before it can be used: - you can't move this declaration to the end of the file! 
  */
 class CarsProviderClass {
   #keyGenerator
@@ -197,7 +196,7 @@ createContainer().
   // You must wrap the class instantiation
   add("carsProvider", (deps) => new CarsProviderClass(deps)).
   add("keyGenerator", KeyGenerator).
-  // You can't use "destructuring" to access methods of the jeinstance because the internal "this" refernce changes:  It's a class limitation!!!
+  // Here, you can't "{carsProvider:{createCar}}" because it changes the "this" value of the createCar method (javascript objects "this" binding mechanism).
   consume(({ carsProvider }) => {
     console.log("❯", carsProvider.createCar("red"));
     console.log("❯", carsProvider.createCar("yellow"));
