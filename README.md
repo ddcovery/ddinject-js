@@ -459,4 +459,8 @@ With this version we support dependencies injection rich functionalities like:
 * Dependency Cycles detection.
 * Direct deps access to consumers (in a very "protected" but simple way)
 
-And it's possible with few lines of code add powerful funcionalities like Containers that "inherites" other "base" containers... javascript rocks wen it is used by javascript with the javascript "bad designed" rules **👊**
+And it's possible with few lines of code to add more and more powerful functionalites lie:
+* Containers that "inherites" other "base" containers.
+* Loading/registering module files directly (.load("./controllers/CustomersCtrl") or .loadAll("./controllers") )
+
+JavaScript rocks when it is used with the javascript "bad designed" language rules **👊**
