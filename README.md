@@ -68,7 +68,7 @@ function CounterFactory({ }) {
   let value = 0;
   return {
     next: ()=value++
-  }
+  }https://en.wikipedia.org/wiki/Builder_pattern
 }
 ```
 
@@ -260,7 +260,7 @@ function createCustomerAction(request, response, next){
 ```
 Usually, you will prefer to register as a provider when possible (removing the need of a "container" variable).
 
-As you probably observed, **ddinject** library enbraces the "[Builder pattern|https://en.wikipedia.org/wiki/Builder_pattern]".  This example shows how to wire-up a _complete express application_ without the need of additional variables.
+As you probably observed, **ddinject** library enbraces the "[Builder pattern](https://en.wikipedia.org/wiki/Builder_pattern)".  This example shows how to wire-up a _complete express application_ without the need of additional variables.
 
 ``` javascript
 // main.js
