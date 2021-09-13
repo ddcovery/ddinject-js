@@ -263,7 +263,8 @@ Usually, you will prefer to register as a provider when possible (removing the n
 ``` javascript
 // main.js
 createContainer().
-  add("config", require("../config/app_config.js"):
+  add("config", require("../config/app_config.js").
+  add("db", require("lib/db.js")).
   add("customersDao", require("./daos/customers_dao.js")).
   add("customersCtrl", require("./controllers/customers_ctrl.js")).
   add("apiRoutes", require("./routes/api_routes.js")).
