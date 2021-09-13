@@ -445,8 +445,7 @@ This "simple thing" is enought for a node/express application:  it's simple, it'
 
 * Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider has dependencies, they are evaluated before provider itself is executed.... and so on.
 
-In the other hand, **Destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
-
+* In the other hand, **Destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
 ```javascript
 container.doWith( ({customersDAO, productsDAO })=>{ 
  ... 
@@ -461,7 +460,7 @@ With this version we support dependencies injection rich functionalities like:
 * Dependency Cycles detection.
 * Direct deps access to consumers (in a very "protected" but simple way)
 
-And it's possible with few lines of code to add more and more powerful functionalites lie:
+And it's possible with few lines of code to add more and more powerful functionalites like:
 * Containers that "inherites" other "base" containers.
 * Loading/registering module files directly (.load("./controllers/CustomersCtrl") or .loadAll("./controllers") )
 
