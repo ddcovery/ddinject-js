@@ -444,14 +444,15 @@ The original version I wrote was 23 lines long:
 
 This "simple thing" is enought for a node/express application:  it's simple, it's powerful, it's fast.
 
-* Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider receives dependencies as parameters, they are evaluated before provider itself is executed.... and so on.
-
-* In the other hand, **Destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
+* **Destructuring** is treated as first class citizen.  It fits perfectly when you need to consume dependencies.
 ```javascript
 container.doWith( ({customersDAO, productsDAO })=>{ 
  ... 
 });
 ```
+* Object **defined properties** are the way used to provide dependencies:  when you evaluate a dependency property, the provider function is evaluated (and not before)... if this provider receives dependencies as parameters, they are evaluated before provider itself is executed.... and so on.
+
+
 
 The actual container version code is about 80 lines long (after removing comments and the Proxy mechanism recently added to protect from misuse).  
 
