@@ -402,6 +402,7 @@ One of the more powerful ones is embracing than:
 
 * **it is not an OOP language** in the "classic" way than OOP developers expect.
 * **it is not an strongly typed language**
+* **it has design aspects that sucks (i.e. type coercion) and you must avoid**
 
 After breaking the universal mantra about "how an OOP language must be and why javascript is a bad language" you can start enjoying developing with it:
 
