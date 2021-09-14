@@ -191,7 +191,7 @@ createContainer().
 # Definitions
 
 ## The provider
-A provider is a function that receives, as paramenter, the dependencies object and generates, as result, a value.
+A provider is a function that receives, as paramenter, the dependencies object and generates, as result, a value.  
 
 ```javascript
 function CustomersDAO( dependencies ) {
@@ -217,11 +217,13 @@ function CustomersDAO( {keyGenerator, db} ) {
 }
 
 ```
+It must be added to the container ( with **add**, **addTransient** or **addSingleton** methods) to be considered a provider.  When added, the provider is associated to a **name** that will be used by other providers/consumers to reference the provided value.
+
 **Remarks**:
 * The _dependencies_ object can't be modified: if you try to create, change or delete any property an exception will be raised.
 * Trying to access an unexisting dependency will raise an exception
 
-A provider can be added using **add**, **addTransient** and **addSingleton**
+
 
 ## The consumer
 Any function that consumes dependencies from the container and is not registered as provider is a consumer.
