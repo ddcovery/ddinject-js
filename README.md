@@ -35,7 +35,7 @@ Hey guy 🙋: this is **JavaScript!!!**  .
 
 This container library is, mainly, **functional**.   We love functions and closures:  dependencies providers/consumers are implemented this graceful way.
 
-Any way, there is no problem:  you can also use it with javascript classes (😅) with very small boilerplate.  You will see it a little below.  Just continue reading
+Any way:  you can also use it with javascript classes (😅) with very small boilerplate.  You will see it a little below (thanks for reading)
 
 ## Lets see more examples 
 
