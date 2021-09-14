@@ -193,7 +193,6 @@ createContainer().
 ## The provider
 A provider is a function that receives, as paramenter, the dependencies object and generates, as result, a value.
 
-i.e.:
 ```javascript
 function CustomersDAO( dependencies ) {
   const {keyGenerator, db} = dependencies;
@@ -207,7 +206,6 @@ function CustomersDAO( dependencies ) {
 
 ```
 You can rewrite it in a more friendly way:
-
 ```javascript
 function CustomersDAO( {keyGenerator, db} ) {
   return {
