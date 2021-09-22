@@ -4,7 +4,7 @@ module.exports = createContainer;
 
 function createContainer() {
   const deps = {};
-  const proxiedDeps = createDependenciesProxy(deps);
+  const readonlyDeps = crateReadonlyDeps(deps);
 
   const containerApi = {
     add: addSingleton,
@@ -45,7 +45,7 @@ function createContainer() {
      * container = createContainer()
      * const {db, s3} = container.deps;
      */
-    deps: proxiedDeps
+    deps: readonlyDeps
   };
 
   return containerApi;
@@ -72,7 +72,7 @@ function createContainer() {
   function consume(fConsumer) {
     assert(typeof fConsumer === "function", "fInjectionCousumer must be function");
 
-    return fConsumer(proxiedDeps);
+    return fConsumer(readonlyDeps);
   }
 
   /**
@@ -93,7 +93,7 @@ function createContainer() {
     let evaluated = false;
     return () => {
       if (!evaluated) {
-        value = fValueProvider(proxiedDeps);
+        value = fValueProvider(readonlyDeps);
         evaluated = true;
       }
       return value;
@@ -114,7 +114,7 @@ function createContainer() {
       } else {
         awaitingValue = true;
         try {
-          return fValueProvider(proxiedDeps);
+          return fValueProvider(readonlyDeps);
         } finally {
           awaitingValue = false;
         }
@@ -122,8 +122,8 @@ function createContainer() {
     }
   }
 
-  function createDependenciesProxy(deps) {
-    const DepsChgErrorMsg = `✗ [ddinject.Container]: changing dependencies object is not allowed`;
+  function crateReadonlyDeps(deps) {
+    const deps_chg_error_message = `✗ [ddinject.Container]: changing dependencies object is not allowed`;
     return new Proxy(deps, {
       get(target, name) {
         if (target.hasOwnProperty(name))
@@ -131,9 +131,9 @@ function createContainer() {
         else
           throw new Error(`✗ [ddinject.Container]: can't solve "${name}"`);
       },
-      set() { throw new Error(DepsChgErrorMsg); },
-      deleteProperty() { throw new Error(DepsChgErrorMsg); },
-      defineProperty() { throw new Error(DepsChgErrorMsg); }
+      set() { throw new Error(deps_chg_error_message); },
+      deleteProperty() { throw new Error(deps_chg_error_message); },
+      defineProperty() { throw new Error(deps_chg_error_message); }
     })
   }
 }
