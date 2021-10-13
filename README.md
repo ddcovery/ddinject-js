@@ -10,19 +10,19 @@ When **destructuring** and **defined properties** are combined dependency inject
 const { createContainer } = require("..");
 
 createContainer().
-  add("logger", LoggerFactory).
-  add("writer", WriterFactory).
+  add("logger", Logger).
+  add("writer", Writer).
   consume(({ logger }) => {
     logger.log("This has been logged");
   });
 
-function LoggerFactory({ writer: { write } }) {
+function Logger({ writer: { write } }) {
   let nLine = 0;
   return {
     log: (text) => write(`[${new Date().toISOString()}] [☛${++nLine}] ${text}`)
   }
 }
-function WriterFactory() {
+function Writer() {
   return {
     write: (text) => console.log(text)
   };
@@ -45,29 +45,29 @@ You can also use it with javascript classes (😅) with very small boilerplate: 
 
 ```javascript
 createContainer().
-  addTransient("counter", CounterFactory).
-  add("evenNumbers", EvenNumbersFactory).
-  add("oddNumbers", OddNumbersFactory).
+  addTransient("counter", Counter).
+  add("evenNumbers", EvenNumbers).
+  add("oddNumbers", OddNumbers).
   consume(({ evenNumbers, oddNumbers }) => {
     console.log("First 3 even numbers are:", evenNumbers.next(), evenNumbers.next(), evenNumbers.next() );
     console.log("First 3 odd numbers are:", oddNumbers.next(), oddNumbers.next(), oddNumbers.next() );
   });
 
-function EvenNumbersFactory({ counter }) {
+function EvenNumbers({ counter }) {
   console.log("✓ EvenNumbers has been called");
   return {
     next: ()=>counter.next() * 2
   }
 }
 
-function OddNumbersFactory({ counter }) {
+function OddNumbers({ counter }) {
   console.log("✓ OddNumbers has been called");
   return {
     next: ()=>1 + counter.next() * 2
   }
 }
 
-function CounterFactory({ }) {
+function Counter({ }) {
   console.log("✓ Counter has been called");
   let value = 0;
   return {
@@ -82,15 +82,15 @@ function CounterFactory({ }) {
 
 ```javascript
 // A self dependency
-function AFactory({ a }) { }
+function A({ a }) { }
 // B and C mutually dependent
-function BFactory({ c }) { }
-function CFactory({ b }) { }
+function B({ c }) { }
+function C({ b }) { }
 
 const container = createContainer().
-  add("a", AFactory).
-  add("b", BFactory).
-  add("c", CFactory);
+  add("a", A).
+  add("b", B).
+  add("c", C);
 
 try {
   container.consume(({ a }) => { });
@@ -110,8 +110,8 @@ try {
 
 ```javascript
 createContainer().
-  add("Person", PersonClassFactory).
-  add("keyGenerator", KeyGeneratorFactory).
+  add("Person", PersonClass).
+  add("keyGenerator", KeyGenerator).
   consume(({ Person }) => {
     // Person is a Class with internal dependencies solved (i.e.: keyGenerator)
     // You can create as many instances of Person as you need.
@@ -124,8 +124,8 @@ createContainer().
  * The class itself (no a class instance) is returned by the factory.
  * The class can use all solved dependencies because it is defined into the factory function.
  */
-function PersonClassFactory({ keyGenerator: { next } }) {
-  console.log("✓ PersonClassFactory has been called");
+function PersonClass({ keyGenerator: { next } }) {
+  console.log("✓ PersonClass has been called");
   return class Person {
     #id
     #name
@@ -146,8 +146,8 @@ function PersonClassFactory({ keyGenerator: { next } }) {
   };
 }
 
-function KeyGeneratorFactory({ } = {}) {
-  console.log("✓ KeyGeneratorFactory has been called");
+function KeyGenerator({ } = {}) {
+  console.log("✓ KeyGenerator has been called");
   let lastId = 0;
   return {
     next: () => `${++lastId}`
@@ -374,19 +374,19 @@ The dependencies object. Each property correspond to one of the added dependenci
 
 ```javascript
 
-container.add("greeter",GreeterFactory).add("quiet", QuietFactory);
+container.add("greeter",Greeter).add("quiet", Quiet);
 
 const {greeter, quiet} = container.deps;
 
 console.assert( quiet.say() === "" );
 console.assert( greeter.sayHello("Peter") === "Hello Peter" );
 
-function GreeterFactory({quiet}){
+function Greeter({quiet}){
   return {
     sayHello: (name)=>`Hello ${name}`
   };
 }
-funtion QuietFactory(){
+funtion Quiet(){
   return {
     say: ()=>``
   }:
