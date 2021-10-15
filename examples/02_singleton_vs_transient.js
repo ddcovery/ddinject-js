@@ -3,7 +3,7 @@ const { createContainer } = require("..");
 console.log("\nExample 1: log with singleton\n");
 {
 	let container = createContainer().
-		add("logger", LoggerFactory);
+		add("logger", Logger);
 
 	container.consume(({ logger }) => logger.write("Nice to see you again... you can see my line number is ☛1"));
 	container.consume(({ logger: { write } }) => write("is it ☛2? yes it is"));
@@ -15,7 +15,7 @@ console.log("\nExample 1: log with singleton\n");
 console.log("\nExample 2... log with transient\n");
 {
 	let container = createContainer().
-		addTransient("logger", LoggerFactory);
+		addTransient("logger", Logger);
 
 	container.consume(({ logger }) => logger.write("I'm ☛1"));
 	container.consume(({ logger: { write } }) => write("As I mentioned, I really am ☛1"));
@@ -23,7 +23,7 @@ console.log("\nExample 2... log with transient\n");
 
 }
 
-function LoggerFactory() {
+function Logger() {
 	let nLine = 0;
 	return {
 		write: (text) => console.log(`[${new Date().toISOString()}] [☛${++nLine}] ${text}`),
